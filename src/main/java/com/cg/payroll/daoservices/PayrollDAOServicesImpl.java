@@ -36,28 +36,30 @@ public class PayrollDAOServicesImpl implements PayrollDAOServices {
 	}
 
 	public boolean updateAssociate(Associate associate) throws SQLException {
-		jdbcTemplate.update("update Associate set yearlyInvestmentUnder8oC=?,firstName=?,lastName=?,department=?,designation=?,pancard=?,emailId=? where associateId="+associate.getAssociateId(),
+		
+		boolean updateFlag;
+		int associatUpdateCount = jdbcTemplate.update("update Associate set yearlyInvestmentUnder8oC=?,firstName=?,lastName=?,department=?,designation=?,pancard=?,emailId=? where associateId="+associate.getAssociateId(),
 				associate.getYearlyInvestmentUnder8oC(),
 				associate.getFirstName(),associate.getLastName(),associate.getDepartment(),associate.getDesignation(),associate.getPancard(),associate.getEmailId());
-		String query = "select max(associateId)  from Associate"; 
+		//String query = "select max(associateId)  from Associate"; 
 		
-        int associateId = jdbcTemplate.queryForInt(query);
-        
-        jdbcTemplate.update("update Salary set associateId=?, basicSalary=?,epf=?,companyPf=?"+
-				", hra=?, conveyanceAllowance=?, otherAllowance=?,"
-				+ "personalAllowance=?,"
-				+ "monthlyTax=?,gratuity=?,"
-				+ "grossSalary=?,netSalary=? where associateId="+associate.getAssociateId(),
-				associate.getAssociateId(),associate.getSalary().getBasicSalary(),associate.getSalary().getEpf(),associate.getSalary().getCompanyPf(),
-				 associate.getSalary().getHra(),associate.getSalary().getConveyanceAllowance(),associate.getSalary().getOtherAllowance(),
-				 associate.getSalary().getPersonalAllowance(),associate.getSalary().getMonthlyTax(),associate.getSalary().getGratuity(),associate.getSalary().getGrossSalary()
-				 ,associate.getSalary().getNetSalary());
-        
-        
-        
-        
-        jdbcTemplate.update("update BankDetails set associateId=?,accountNo=?,bankName=?, ifscCode=? where associateId="+associate.getAssociateId(),associate.getAssociateId(),associate.getBankDetails().getAccountNo() ,associate.getBankDetails().getBankName(),associate.getBankDetails().getIfscCode());
-        
+      //  int associateId = jdbcTemplate.queryForInt(query);
+       if(associatUpdateCount > 0)
+       {
+    	   jdbcTemplate.update("update Salary set associateId=?, basicSalary=?,epf=?,companyPf=?"+
+   				", hra=?, conveyanceAllowance=?, otherAllowance=?,"
+   				+ "personalAllowance=?,"
+   				+ "monthlyTax=?,gratuity=?,"
+   				+ "grossSalary=?,netSalary=? where associateId="+associate.getAssociateId(),
+   				associate.getAssociateId(),associate.getSalary().getBasicSalary(),associate.getSalary().getEpf(),associate.getSalary().getCompanyPf(),
+   				 associate.getSalary().getHra(),associate.getSalary().getConveyanceAllowance(),associate.getSalary().getOtherAllowance(),
+   				 associate.getSalary().getPersonalAllowance(),associate.getSalary().getMonthlyTax(),associate.getSalary().getGratuity(),associate.getSalary().getGrossSalary()
+   				 ,associate.getSalary().getNetSalary());
+    	  
+          jdbcTemplate.update("update BankDetails set associateId=?,accountNo=?,bankName=?, ifscCode=? where associateId="+associate.getAssociateId(),associate.getAssociateId(),associate.getBankDetails().getAccountNo() ,associate.getBankDetails().getBankName(),associate.getBankDetails().getIfscCode());
+          updateFlag =true;
+          return updateFlag;
+       }
 		return false;
 	}
 	
