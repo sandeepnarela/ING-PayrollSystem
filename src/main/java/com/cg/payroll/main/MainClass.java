@@ -18,19 +18,28 @@ public class MainClass {
 		PayrollServices playerDAO = (PayrollServices) context.getBean("payrollServices");
 		Associate associate = new Associate(56, "ss", "df", "df", "df", "dfd", "dfdf", new Salary(34, 34, 45, 45, 45, 45, 45, 45, 45, 45, 45), new BankDetails(3434, "dfgf", "dfd"));
 		try {
-			//playerDAO.acceptAssociateDetails(associate);
+			
+			// Insert the Associate Details.
+			int insertAssociate = playerDAO.acceptAssociateDetails(associate);
+			System.out.println("Insert Associate"+insertAssociate);
+			
+			// Get the Associates Details
 			Associate associate1= playerDAO.getAssociateDetails(7);
-			//int salary =playerDAO.calaculateNetSalary(7);
-			//System.out.println("::::Salary:::"+salary);
-			System.out.println("get associate:::::"+associate1.getDepartment());
-			/*List<Associate>  list =  playerDAO.getAllAssociateDetails();
+						
+			// Get all the associate details.			
+			List<Associate>  list =  playerDAO.getAllAssociateDetails();
 			for(Associate associate2 :list) {
 				System.out.println(":list::getAssociateId::::"+associate2.getAssociateId());
-			}*/
+			}
+			
+			// delete the associate details
+//			boolean deleteAssociate= playerDAO.removeAssociate(associate1.getAssociateId());
+			boolean deleteAssociate= playerDAO.removeAssociate(2);
+			System.out.println("Delete assocaite" + deleteAssociate);
+			
 		} catch (PayrollServicesDownException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//System.out.println(":::::::::::"+associate.getAssociateId());
+			System.out.println(":::::::::::"+associate.getAssociateId());
 	}
 }

@@ -3,6 +3,12 @@ public class Salary {
 	private int basicSalary, hra, conveyanceAllowance, otherAllowance, personalAllowance, 	monthlyTax, epf, companyPf, gratuity, grossSalary, netSalary;
 	public Salary() {
 	}
+	public Salary(int basicSalary, int epf, int companyPf) {
+		super();
+		this.basicSalary = basicSalary;
+		this.epf = epf;
+		this.companyPf = companyPf;
+	}
 	public Salary(int basicSalary, int hra, int conveyanceAllowance,
 			int otherAllowance, int personalAllowance, int monthlyTax, int epf,
 			int companyPf, int gratuity, int grossSalary, int netSalary) {
